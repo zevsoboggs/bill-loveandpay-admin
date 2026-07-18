@@ -96,7 +96,15 @@ export default function App() {
             </Routes>
 
             <UnsavedChangesNotifier />
-            <DocumentTitleHandler />
+            <DocumentTitleHandler
+              handler={({ resource, action }) => {
+                const base = 'Love&Pay · Админ';
+                const label = resource?.meta?.label;
+                const actions = { list: '', create: 'Создание', edit: 'Редактирование', show: 'Просмотр', clone: 'Клон' };
+                if (label) return `${actions[action] ? actions[action] + ' · ' : ''}${label} — ${base}`;
+                return base;
+              }}
+            />
           </Refine>
         </AntdApp>
       </ConfigProvider>
