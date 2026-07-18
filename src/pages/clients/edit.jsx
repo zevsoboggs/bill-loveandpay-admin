@@ -16,11 +16,12 @@ export const ClientEdit = () => {
     if (record) formProps.form?.setFieldsValue({
       sbpMarginPct: fractionToPct(record.sbpMargin),
       promptpayMarginPct: fractionToPct(record.promptpayMargin),
+      esimMarginPct: fractionToPct(record.esimMargin),
     });
   }, [record]);
 
-  const submit = ({ sbpMarginPct, promptpayMarginPct, ...rest }) =>
-    onFinish({ ...rest, sbpMargin: pctToFraction(sbpMarginPct), promptpayMargin: pctToFraction(promptpayMarginPct) });
+  const submit = ({ sbpMarginPct, promptpayMarginPct, esimMarginPct, ...rest }) =>
+    onFinish({ ...rest, sbpMargin: pctToFraction(sbpMarginPct), promptpayMargin: pctToFraction(promptpayMarginPct), esimMargin: pctToFraction(esimMarginPct) });
 
   return (
     <Edit saveButtonProps={saveButtonProps} title="Редактирование клиента">
@@ -31,9 +32,18 @@ export const ClientEdit = () => {
           <Col xs={24} md={12}><Form.Item name="email" label="Email"><Input type="email" /></Form.Item></Col>
           <Col xs={24} md={12}><Form.Item name="status" label="Статус"><Select options={[
             { value: 'ACTIVE', label: 'ACTIVE' }, { value: 'PENDING', label: 'PENDING' }, { value: 'SUSPENDED', label: 'SUSPENDED' }]} /></Form.Item></Col>
-          <Col xs={24} md={12}><Form.Item name="sbpMarginPct" label="Наценка СБП, %" tooltip="Например 3.3. Пусто = дефолт платформы (4%)"><InputNumber min={0} max={100} step={0.1} addonAfter="%" placeholder="напр. 3.3" style={{ width: '100%' }} /></Form.Item></Col>
-          <Col xs={24} md={12}><Form.Item name="promptpayMarginPct" label="Наценка PromptPay, %" tooltip="Например 3.3. Пусто = дефолт платформы (4%)"><InputNumber min={0} max={100} step={0.1} addonAfter="%" placeholder="напр. 3.3" style={{ width: '100%' }} /></Form.Item></Col>
+          <Col xs={24} md={8}><Form.Item name="sbpMarginPct" label="Наценка СБП, %" tooltip="Пусто = дефолт (4%)"><InputNumber min={0} max={100} step={0.1} addonAfter="%" placeholder="3.3" style={{ width: '100%' }} /></Form.Item></Col>
+          <Col xs={24} md={8}><Form.Item name="promptpayMarginPct" label="Наценка PromptPay, %" tooltip="Пусто = дефолт (4%)"><InputNumber min={0} max={100} step={0.1} addonAfter="%" placeholder="4" style={{ width: '100%' }} /></Form.Item></Col>
+          <Col xs={24} md={8}><Form.Item name="esimMarginPct" label="Наценка eSIM, %" tooltip="Пусто = дефолт (15%)"><InputNumber min={0} max={100} step={0.5} addonAfter="%" placeholder="15" style={{ width: '100%' }} /></Form.Item></Col>
         </Row>
+
+        <Divider orientation="left">Доступ к услугам</Divider>
+        <Row gutter={16}>
+          <Col xs={24} md={8}><Form.Item name="sbpEnabled" label="СБП (USDT)" valuePropName="checked"><Switch /></Form.Item></Col>
+          <Col xs={24} md={8}><Form.Item name="promptpayEnabled" label="PromptPay (Тай QR)" valuePropName="checked"><Switch /></Form.Item></Col>
+          <Col xs={24} md={8}><Form.Item name="esimEnabled" label="eSIM (Yesim)" valuePropName="checked"><Switch /></Form.Item></Col>
+        </Row>
+
         <Form.Item name="ipRestricted" label="Ограничение по белому списку IP" valuePropName="checked"><Switch /></Form.Item>
 
         <Divider orientation="left">Доступ в кабинет клиента</Divider>

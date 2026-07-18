@@ -75,13 +75,22 @@ export const ClientShow = () => {
       title={<Space>{client.name} <Tag color={CLIENT_STATUS_COLOR[client.status]}>{client.status}</Tag></Space>}
       headerButtons={<><ListButton /><EditButton /></>}
     >
+      {/* Service access */}
+      <Space wrap style={{ marginBottom: 12 }}>
+        <Text type="secondary">Доступ:</Text>
+        <Tag color={client.sbpEnabled ? 'geekblue' : 'default'}>{client.sbpEnabled ? 'СБП ✓' : 'СБП ✕'}</Tag>
+        <Tag color={client.promptpayEnabled ? 'green' : 'default'}>{client.promptpayEnabled ? 'PromptPay ✓' : 'PromptPay ✕'}</Tag>
+        <Tag color={client.esimEnabled ? 'purple' : 'default'}>{client.esimEnabled ? 'eSIM ✓' : 'eSIM ✕'}</Tag>
+      </Space>
+
       {/* Balances */}
       <Row gutter={[16, 16]}>
-        <Col xs={24} md={8}><Card><Statistic title="Депозит (нераспределён)" value={client.depositBalance} precision={2} suffix="USDT" prefix={<WalletOutlined />} />
-          <Button type="primary" icon={<SwapOutlined />} block style={{ marginTop: 12 }} onClick={() => setDistOpen(true)}>Распределить депозит</Button>
+        <Col xs={24} md={6}><Card><Statistic title="Депозит (нераспределён)" value={client.depositBalance} precision={2} suffix="USDT" prefix={<WalletOutlined />} />
+          <Button type="primary" icon={<SwapOutlined />} block style={{ marginTop: 12 }} onClick={() => setDistOpen(true)}>Распределить</Button>
         </Card></Col>
-        <Col xs={12} md={8}><Card><Statistic title={SYSTEM_LABEL.SBP} value={client.sbpBalance} precision={2} suffix="USDT" valueStyle={{ color: '#2f54eb' }} /></Card></Col>
-        <Col xs={12} md={8}><Card><Statistic title={SYSTEM_LABEL.PROMPTPAY} value={client.promptpayBalance} precision={2} suffix="USDT" valueStyle={{ color: '#389e0d' }} /></Card></Col>
+        <Col xs={8} md={6}><Card><Statistic title={SYSTEM_LABEL.SBP} value={client.sbpBalance} precision={2} suffix="USDT" valueStyle={{ color: '#2f54eb' }} /></Card></Col>
+        <Col xs={8} md={6}><Card><Statistic title={SYSTEM_LABEL.PROMPTPAY} value={client.promptpayBalance} precision={2} suffix="USDT" valueStyle={{ color: '#389e0d' }} /></Card></Col>
+        <Col xs={8} md={6}><Card><Statistic title={SYSTEM_LABEL.ESIM} value={client.esimBalance} precision={2} suffix="USDT" valueStyle={{ color: '#722ed1' }} /></Card></Col>
       </Row>
 
       <Divider orientation="left">Реквизиты и API-доступ</Divider>
@@ -135,7 +144,7 @@ export const ClientShow = () => {
           description="Положительная сумма переносит с депозита в систему. Отрицательная — возвращает из системы на депозит." />
         <Form form={distForm} layout="vertical" onFinish={distribute} initialValues={{ system: 'SBP' }}>
           <Form.Item name="system" label="Система"><Segmented options={[
-            { value: 'SBP', label: SYSTEM_LABEL.SBP }, { value: 'PROMPTPAY', label: SYSTEM_LABEL.PROMPTPAY }]} block /></Form.Item>
+            { value: 'SBP', label: SYSTEM_LABEL.SBP }, { value: 'PROMPTPAY', label: SYSTEM_LABEL.PROMPTPAY }, { value: 'ESIM', label: SYSTEM_LABEL.ESIM }]} block /></Form.Item>
           <Form.Item name="amount" label="Сумма (USDT)" rules={[{ required: true }]}><InputNumber style={{ width: '100%' }} step={10} placeholder="напр. 500 или -100" /></Form.Item>
           <Form.Item name="note" label="Комментарий"><Input placeholder="необязательно" /></Form.Item>
         </Form>

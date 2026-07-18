@@ -9,7 +9,7 @@ import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 import { App as AntdApp, ConfigProvider } from 'antd';
 import {
   DashboardOutlined, TeamOutlined, WalletOutlined, SwapOutlined,
-  TransactionOutlined, SafetyCertificateOutlined, ProfileOutlined, CreditCardOutlined,
+  TransactionOutlined, SafetyCertificateOutlined, ProfileOutlined, CreditCardOutlined, MobileOutlined,
 } from '@ant-design/icons';
 import '@refinedev/antd/dist/reset.css';
 
@@ -29,6 +29,7 @@ import { TransactionList } from './pages/transactions/list.jsx';
 import { IpWhitelistList } from './pages/ipwhitelist/list.jsx';
 import { LedgerList } from './pages/ledger/list.jsx';
 import { CardApplicationList } from './pages/cardApplications/list.jsx';
+import { EsimList } from './pages/esims/list.jsx';
 
 export default function App() {
   return (
@@ -47,6 +48,7 @@ export default function App() {
               { name: 'deposits', list: '/deposits', create: '/deposits/create', meta: { label: 'Депозиты (USDT)', icon: <WalletOutlined /> } },
               { name: 'allocations', list: '/allocations', meta: { label: 'Распределение', icon: <SwapOutlined /> } },
               { name: 'transactions', list: '/transactions', meta: { label: 'Транзакции', icon: <TransactionOutlined /> } },
+              { name: 'esims', list: '/esims', meta: { label: 'eSIM', icon: <MobileOutlined /> } },
               { name: 'card-applications', list: '/card-applications', meta: { label: 'Заявки на карты', icon: <CreditCardOutlined /> } },
               { name: 'ip-whitelist', list: '/ip-whitelist', meta: { label: 'Белые IP', icon: <SafetyCertificateOutlined /> } },
               { name: 'ledger', list: '/ledger', meta: { label: 'Ledger', icon: <ProfileOutlined /> } },
@@ -75,6 +77,7 @@ export default function App() {
                 </Route>
                 <Route path="/allocations" element={<AllocationList />} />
                 <Route path="/transactions" element={<TransactionList />} />
+                <Route path="/esims" element={<EsimList />} />
                 <Route path="/card-applications" element={<CardApplicationList />} />
                 <Route path="/ip-whitelist" element={<IpWhitelistList />} />
                 <Route path="/ledger" element={<LedgerList />} />

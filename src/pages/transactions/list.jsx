@@ -16,7 +16,7 @@ export const TransactionList = () => {
   return (
     <List title="Транзакции" headerButtons={
       <Segmented value={system} onChange={setSystem} options={[
-        { value: 'ALL', label: 'Все' }, { value: 'SBP', label: SYSTEM_LABEL.SBP }, { value: 'PROMPTPAY', label: SYSTEM_LABEL.PROMPTPAY }]} />
+        { value: 'ALL', label: 'Все' }, { value: 'SBP', label: SYSTEM_LABEL.SBP }, { value: 'PROMPTPAY', label: SYSTEM_LABEL.PROMPTPAY }, { value: 'ESIM', label: SYSTEM_LABEL.ESIM }]} />
     }>
       <Table {...tableProps} rowKey="id" scroll={{ x: 1000 }}>
         <Table.Column dataIndex={['client', 'name']} title="Клиент" render={(v) => v || '—'} />
