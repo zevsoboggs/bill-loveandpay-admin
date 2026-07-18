@@ -1,13 +1,20 @@
 import { List, useTable, DateField } from '@refinedev/antd';
-import { Table, Tag, Typography } from 'antd';
+import { Table, Tag, Typography, Space, Input } from 'antd';
 import { usdt } from '../../constants.js';
+import { makeSetFilter, ClientFilterSelect } from '../../components/filters.jsx';
 
 const { Text } = Typography;
 
 export const EsimList = () => {
-  const { tableProps } = useTable({ syncWithLocation: true, sorters: { initial: [{ field: 'createdAt', order: 'desc' }] } });
+  const { tableProps, setFilters } = useTable({ syncWithLocation: true, sorters: { initial: [{ field: 'createdAt', order: 'desc' }] } });
+  const setF = makeSetFilter(setFilters);
   return (
     <List title="Выпущенные eSIM" canCreate={false}>
+      <Space wrap style={{ marginBottom: 16 }}>
+        <ClientFilterSelect onChange={setF('clientId', 'eq')} />
+        <Input.Search allowClear placeholder="Страна" style={{ width: 180 }} onSearch={setF('country', 'contains')} />
+        <Input.Search allowClear placeholder="ICCID" style={{ width: 200 }} onSearch={setF('iccid', 'contains')} />
+      </Space>
       <Table {...tableProps} rowKey="id" scroll={{ x: 1000 }}>
         <Table.Column dataIndex={['client', 'name']} title="Клиент" render={(v) => v || '—'} />
         <Table.Column dataIndex="planName" title="Тариф" render={(v, r) => (

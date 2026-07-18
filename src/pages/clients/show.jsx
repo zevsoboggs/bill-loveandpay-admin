@@ -22,9 +22,11 @@ export const ClientShow = () => {
   const invalidate = useInvalidate();
   const [distOpen, setDistOpen] = useState(false);
   const [ipOpen, setIpOpen] = useState(false);
+  const [adjOpen, setAdjOpen] = useState(false);
   const [busy, setBusy] = useState(false);
   const [distForm] = Form.useForm();
   const [ipForm] = Form.useForm();
+  const [adjForm] = Form.useForm();
 
   if (!client) return <Show isLoading />;
 
@@ -51,6 +53,16 @@ export const ClientShow = () => {
     catch { message.error('Ошибка'); } finally { setBusy(false); }
   };
 
+  const adjustBalance = async (v) => {
+    setBusy(true);
+    try {
+      await httpClient.post(`${ADMIN_API}/clients/${client.id}/adjust-balance`, { balanceType: v.balanceType, amount: Number(v.amount), note: v.note });
+      message.success('Баланс скорректирован');
+      setAdjOpen(false); adjForm.resetFields(); refresh();
+    } catch (e) { message.error(e.response?.data?.error || 'Ошибка'); }
+    finally { setBusy(false); }
+  };
+
   const createWallet = async () => {
     setBusy(true);
     try { await httpClient.post(`${ADMIN_API}/clients/${client.id}/wallet`); message.success('Кошелёк создан'); refresh(); }
@@ -73,7 +85,7 @@ export const ClientShow = () => {
     <Show
       isLoading={false}
       title={<Space>{client.name} <Tag color={CLIENT_STATUS_COLOR[client.status]}>{client.status}</Tag></Space>}
-      headerButtons={<><ListButton /><EditButton /></>}
+      headerButtons={<><ListButton /><Button icon={<WalletOutlined />} onClick={() => setAdjOpen(true)}>Корректировать баланс</Button><EditButton /></>}
     >
       {/* Service access */}
       <Space wrap style={{ marginBottom: 12 }}>
@@ -152,6 +164,26 @@ export const ClientShow = () => {
             { value: 'SBP', label: SYSTEM_LABEL.SBP }, { value: 'PROMPTPAY', label: SYSTEM_LABEL.PROMPTPAY }, { value: 'ESIM', label: SYSTEM_LABEL.ESIM }]} block /></Form.Item>
           <Form.Item name="amount" label="Сумма (USDT)" rules={[{ required: true }]}><InputNumber style={{ width: '100%' }} step={10} placeholder="напр. 500 или -100" /></Form.Item>
           <Form.Item name="note" label="Комментарий"><Input placeholder="необязательно" /></Form.Item>
+        </Form>
+      </Modal>
+
+      {/* Adjust balance modal */}
+      <Modal title="Корректировка баланса" open={adjOpen} onCancel={() => setAdjOpen(false)}
+        confirmLoading={busy} onOk={() => adjForm.submit()} okText="Применить">
+        <Alert style={{ marginBottom: 16 }} type="warning" showMessage
+          message="Ручная корректировка баланса"
+          description="Положительная сумма — начислить, отрицательная — списать. Операция пишется в ledger как ADJUSTMENT." />
+        <Descriptions size="small" column={2} style={{ marginBottom: 16 }}>
+          <Descriptions.Item label="Депозит">{usdt(client.depositBalance)}</Descriptions.Item>
+          <Descriptions.Item label="СБП">{usdt(client.sbpBalance)}</Descriptions.Item>
+          <Descriptions.Item label="PromptPay">{usdt(client.promptpayBalance)}</Descriptions.Item>
+          <Descriptions.Item label="eSIM">{usdt(client.esimBalance)}</Descriptions.Item>
+        </Descriptions>
+        <Form form={adjForm} layout="vertical" onFinish={adjustBalance} initialValues={{ balanceType: 'DEPOSIT' }}>
+          <Form.Item name="balanceType" label="Баланс"><Segmented block options={[
+            { value: 'DEPOSIT', label: 'Депозит' }, { value: 'SBP', label: 'СБП' }, { value: 'PROMPTPAY', label: 'PromptPay' }, { value: 'ESIM', label: 'eSIM' }]} /></Form.Item>
+          <Form.Item name="amount" label="Сумма (USDT)" rules={[{ required: true }]}><InputNumber style={{ width: '100%' }} step={10} placeholder="напр. 100 или -50" /></Form.Item>
+          <Form.Item name="note" label="Причина / комментарий"><Input placeholder="напр. компенсация, корректировка ошибки" /></Form.Item>
         </Form>
       </Modal>
 

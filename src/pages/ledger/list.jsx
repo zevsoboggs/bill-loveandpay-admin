@@ -1,15 +1,24 @@
 import { List, useTable, DateField } from '@refinedev/antd';
-import { Table, Tag, Typography } from 'antd';
+import { Table, Tag, Typography, Space, Select } from 'antd';
 import { usdt } from '../../constants.js';
+import { makeSetFilter, ClientFilterSelect } from '../../components/filters.jsx';
 
 const { Text } = Typography;
 const KIND_COLOR = { DEPOSIT: 'blue', ALLOCATION: 'purple', PAYMENT: 'volcano', REFUND: 'gold', ADJUSTMENT: 'default' };
-const BAL_COLOR = { DEPOSIT: 'default', SBP: 'geekblue', PROMPTPAY: 'green' };
+const BAL_COLOR = { DEPOSIT: 'default', SBP: 'geekblue', PROMPTPAY: 'green', ESIM: 'purple' };
 
 export const LedgerList = () => {
-  const { tableProps } = useTable({ syncWithLocation: true, sorters: { initial: [{ field: 'createdAt', order: 'desc' }] } });
+  const { tableProps, setFilters } = useTable({ syncWithLocation: true, sorters: { initial: [{ field: 'createdAt', order: 'desc' }] } });
+  const setF = makeSetFilter(setFilters);
   return (
     <List title="Ledger (аудит балансов)">
+      <Space wrap style={{ marginBottom: 16 }}>
+        <ClientFilterSelect onChange={setF('clientId', 'eq')} />
+        <Select allowClear placeholder="Операция" style={{ width: 160 }} onChange={setF('kind', 'eq')}
+          options={['DEPOSIT', 'ALLOCATION', 'PAYMENT', 'REFUND', 'ADJUSTMENT'].map((v) => ({ value: v }))} />
+        <Select allowClear placeholder="Баланс" style={{ width: 150 }} onChange={setF('balanceType', 'eq')}
+          options={['DEPOSIT', 'SBP', 'PROMPTPAY', 'ESIM'].map((v) => ({ value: v }))} />
+      </Space>
       <Table {...tableProps} rowKey="id" scroll={{ x: 900 }}>
         <Table.Column dataIndex={['client', 'name']} title="Клиент" render={(v) => v || '—'} />
         <Table.Column dataIndex="kind" title="Операция" render={(v) => <Tag color={KIND_COLOR[v]}>{v}</Tag>} />

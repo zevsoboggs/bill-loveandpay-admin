@@ -1,14 +1,22 @@
 import { List, useTable, EditButton, ShowButton, CreateButton } from '@refinedev/antd';
-import { Table, Tag, Space, Typography } from 'antd';
+import { Table, Tag, Space, Typography, Select, Input } from 'antd';
 import { CLIENT_STATUS_COLOR, usdt } from '../../constants.js';
+import { makeSetFilter } from '../../components/filters.jsx';
 
 const { Text } = Typography;
 
 export const ClientList = () => {
-  const { tableProps } = useTable({ syncWithLocation: true, sorters: { initial: [{ field: 'createdAt', order: 'desc' }] } });
+  const { tableProps, setFilters } = useTable({ syncWithLocation: true, sorters: { initial: [{ field: 'createdAt', order: 'desc' }] } });
+  const setF = makeSetFilter(setFilters);
 
   return (
     <List headerButtons={<CreateButton>Новый клиент</CreateButton>}>
+      <Space wrap style={{ marginBottom: 16 }}>
+        <Input.Search allowClear placeholder="Имя / компания" style={{ width: 200 }} onSearch={setF('name', 'contains')} />
+        <Input.Search allowClear placeholder="Email" style={{ width: 200 }} onSearch={setF('email', 'contains')} />
+        <Select allowClear placeholder="Статус" style={{ width: 160 }} onChange={setF('status', 'eq')}
+          options={[{ value: 'ACTIVE' }, { value: 'SUSPENDED' }, { value: 'PENDING' }]} />
+      </Space>
       <Table {...tableProps} rowKey="id" scroll={{ x: 900 }}>
         <Table.Column dataIndex="name" title="Клиент" render={(v, r) => (
           <Space direction="vertical" size={0}>

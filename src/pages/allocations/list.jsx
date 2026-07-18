@@ -1,16 +1,18 @@
 import { useState } from 'react';
 import { List, useTable, DateField } from '@refinedev/antd';
 import { useInvalidate } from '@refinedev/core';
-import { Table, Tag, Typography, Button, Modal, Form, Select, Segmented, InputNumber, Input, message } from 'antd';
+import { Table, Tag, Typography, Button, Modal, Form, Select, Segmented, InputNumber, Input, message, Space } from 'antd';
 import { SwapOutlined } from '@ant-design/icons';
 import { useSelect } from '@refinedev/antd';
 import { SYSTEM_LABEL, SYSTEM_COLOR, usdt, ADMIN_API } from '../../constants.js';
 import { httpClient } from '../../httpClient.js';
+import { makeSetFilter, ClientFilterSelect } from '../../components/filters.jsx';
 
 const { Text } = Typography;
 
 export const AllocationList = () => {
-  const { tableProps } = useTable({ syncWithLocation: true, sorters: { initial: [{ field: 'createdAt', order: 'desc' }] } });
+  const { tableProps, setFilters } = useTable({ syncWithLocation: true, sorters: { initial: [{ field: 'createdAt', order: 'desc' }] } });
+  const setF = makeSetFilter(setFilters);
   const { selectProps: clientSelect } = useSelect({ resource: 'clients', optionLabel: 'name', optionValue: 'id', pagination: { pageSize: 100 } });
   const invalidate = useInvalidate();
   const [open, setOpen] = useState(false);
@@ -30,6 +32,11 @@ export const AllocationList = () => {
 
   return (
     <List headerButtons={<Button type="primary" icon={<SwapOutlined />} onClick={() => setOpen(true)}>Распределить депозит</Button>}>
+      <Space wrap style={{ marginBottom: 16 }}>
+        <ClientFilterSelect onChange={setF('clientId', 'eq')} />
+        <Select allowClear placeholder="Система" style={{ width: 180 }} onChange={setF('system', 'eq')}
+          options={[{ value: 'SBP', label: SYSTEM_LABEL.SBP }, { value: 'PROMPTPAY', label: SYSTEM_LABEL.PROMPTPAY }, { value: 'ESIM', label: SYSTEM_LABEL.ESIM }]} />
+      </Space>
       <Table {...tableProps} rowKey="id" scroll={{ x: 800 }}>
         <Table.Column dataIndex={['client', 'name']} title="Клиент" render={(v) => v || '—'} />
         <Table.Column dataIndex="system" title="Система" render={(v) => <Tag color={SYSTEM_COLOR[v]}>{SYSTEM_LABEL[v]}</Tag>} />
