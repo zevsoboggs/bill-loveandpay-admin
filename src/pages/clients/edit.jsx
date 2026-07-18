@@ -41,7 +41,7 @@ export const ClientEdit = () => {
         <Row gutter={16}>
           <Col xs={24} md={8}><Form.Item name="sbpEnabled" label="СБП (USDT)" valuePropName="checked"><Switch /></Form.Item></Col>
           <Col xs={24} md={8}><Form.Item name="promptpayEnabled" label="PromptPay (Тай QR)" valuePropName="checked"><Switch /></Form.Item></Col>
-          <Col xs={24} md={8}><Form.Item name="esimEnabled" label="eSIM (Yesim)" valuePropName="checked"><Switch /></Form.Item></Col>
+          <Col xs={24} md={8}><Form.Item name="esimEnabled" label="eSIM" valuePropName="checked"><Switch /></Form.Item></Col>
         </Row>
 
         <Form.Item name="ipRestricted" label="Ограничение по белому списку IP" valuePropName="checked"><Switch /></Form.Item>

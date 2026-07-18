@@ -107,6 +107,11 @@ export const ClientShow = () => {
             <Popconfirm title="Перевыпустить ключи? Старые перестанут работать." onConfirm={rotateKeys}>
               <Button size="small" danger icon={<ReloadOutlined />} loading={busy}>Ротация</Button></Popconfirm></Space>
         </Descriptions.Item>
+        <Descriptions.Item label="Вебхуки" span={2}>
+          {client.webhookUrl
+            ? <Space><Tag color={client.webhookEnabled ? 'success' : 'default'}>{client.webhookEnabled ? 'включены' : 'выключены'}</Tag><Text code style={{ fontSize: 12 }}>{client.webhookUrl}</Text></Space>
+            : <Text type="secondary">не настроены (партнёр задаёт в кабинете)</Text>}
+        </Descriptions.Item>
         <Descriptions.Item label="Депозитный кошелёк (USDT TRC-20)" span={2}>
           {client.depositWalletAddress ? (
             <Space align="start" size="large" wrap>
