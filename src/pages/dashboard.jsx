@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Row, Col, Card, Statistic, Typography, Tag, Spin, Divider, Space, List, Timeline, Empty } from 'antd';
 import {
   TeamOutlined, WalletOutlined, DollarOutlined, RiseOutlined, SwapOutlined,
-  ThunderboltOutlined, CheckCircleOutlined, MobileOutlined, SafetyOutlined,
+  ThunderboltOutlined, CheckCircleOutlined, MobileOutlined, SafetyOutlined, SafetyCertificateOutlined,
 } from '@ant-design/icons';
 import { ADMIN_API, usdt, SYSTEM_LABEL } from '../constants.js';
 import { httpClient } from '../httpClient.js';
@@ -14,6 +14,7 @@ const FEED_ICON = {
   payment: <CheckCircleOutlined style={{ color: '#3f8600' }} />,
   esim: <MobileOutlined style={{ color: '#722ed1' }} />,
   vpn: <SafetyOutlined style={{ color: '#d4380d' }} />,
+  aml: <SafetyCertificateOutlined style={{ color: '#08979c' }} />,
 };
 
 function timeAgo(d) {
@@ -97,6 +98,14 @@ export const Dashboard = () => {
             <Statistic title="Баланс клиентов" value={b.vpnUsdt} precision={2} suffix="USDT" />
             <Text type="success">+{usdt(sys.VPN?.marginUsdt)} прибыль</Text>
             <br /><Text type="secondary">Транзакций: {sys.VPN?.count || 0}</Text>
+          </Card>
+        </Col>
+        <Col xs={12} md={6}>
+          <Card>
+            <Space style={{ marginBottom: 8 }}><Tag color="cyan">{SYSTEM_LABEL.AML}</Tag></Space>
+            <Statistic title="Баланс клиентов" value={b.amlUsdt} precision={2} suffix="USDT" />
+            <Text type="success">+{usdt(sys.AML?.marginUsdt)} прибыль</Text>
+            <br /><Text type="secondary">Проверок: {sys.AML?.count || 0}</Text>
           </Card>
         </Col>
       </Row>

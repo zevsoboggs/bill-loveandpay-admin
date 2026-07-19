@@ -7,12 +7,12 @@ const pctToFraction = (p) => (p === undefined || p === null || p === '' ? null :
 export const ClientCreate = () => {
   const { formProps, saveButtonProps, onFinish } = useForm();
 
-  const submit = ({ sbpMarginPct, promptpayMarginPct, esimMarginPct, vpnMarginPct, ...rest }) =>
-    onFinish({ ...rest, sbpMargin: pctToFraction(sbpMarginPct), promptpayMargin: pctToFraction(promptpayMarginPct), esimMargin: pctToFraction(esimMarginPct), vpnMargin: pctToFraction(vpnMarginPct) });
+  const submit = ({ sbpMarginPct, promptpayMarginPct, esimMarginPct, vpnMarginPct, amlMarginPct, ...rest }) =>
+    onFinish({ ...rest, sbpMargin: pctToFraction(sbpMarginPct), promptpayMargin: pctToFraction(promptpayMarginPct), esimMargin: pctToFraction(esimMarginPct), vpnMargin: pctToFraction(vpnMarginPct), amlMargin: pctToFraction(amlMarginPct) });
 
   return (
     <Create saveButtonProps={saveButtonProps} title="Новый клиент-реселлер">
-      <Form {...formProps} onFinish={submit} layout="vertical" initialValues={{ status: 'ACTIVE', ipRestricted: true, createWallet: true, portalEnabled: true, sbpEnabled: true, promptpayEnabled: true, esimEnabled: false, vpnEnabled: false, transitEnabled: false }}>
+      <Form {...formProps} onFinish={submit} layout="vertical" initialValues={{ status: 'ACTIVE', ipRestricted: true, createWallet: true, portalEnabled: true, sbpEnabled: true, promptpayEnabled: true, esimEnabled: false, vpnEnabled: false, transitEnabled: false, amlEnabled: false }}>
         <Row gutter={16}>
           <Col xs={24} md={12}><Form.Item name="name" label="Название" rules={[{ required: true }]}><Input placeholder="ACME Reseller" /></Form.Item></Col>
           <Col xs={24} md={12}><Form.Item name="company" label="Компания"><Input /></Form.Item></Col>
@@ -23,6 +23,7 @@ export const ClientCreate = () => {
           <Col xs={24} md={6}><Form.Item name="promptpayMarginPct" label="Наценка PromptPay, %" tooltip="Пусто = дефолт (4%)"><InputNumber min={0} max={100} step={0.1} addonAfter="%" placeholder="4" style={{ width: '100%' }} /></Form.Item></Col>
           <Col xs={24} md={6}><Form.Item name="esimMarginPct" label="Наценка eSIM, %" tooltip="Пусто = дефолт (15%)"><InputNumber min={0} max={100} step={0.5} addonAfter="%" placeholder="15" style={{ width: '100%' }} /></Form.Item></Col>
           <Col xs={24} md={6}><Form.Item name="vpnMarginPct" label="Наценка VPN, %" tooltip="Пусто = дефолт (20%)"><InputNumber min={0} max={100} step={0.5} addonAfter="%" placeholder="20" style={{ width: '100%' }} /></Form.Item></Col>
+          <Col xs={24} md={6}><Form.Item name="amlMarginPct" label="Наценка AML, %" tooltip="Пусто = дефолт (0%). Цена проверки 0.5 USDT × (1 + наценка)"><InputNumber min={0} max={100} step={0.5} addonAfter="%" placeholder="0" style={{ width: '100%' }} /></Form.Item></Col>
         </Row>
 
         <Divider orientation="left">Доступ к услугам</Divider>
@@ -32,6 +33,7 @@ export const ClientCreate = () => {
           <Col xs={12} md={6}><Form.Item name="promptpayEnabled" label="PromptPay (Тай QR)" valuePropName="checked"><Switch /></Form.Item></Col>
           <Col xs={12} md={6}><Form.Item name="esimEnabled" label="eSIM" valuePropName="checked"><Switch /></Form.Item></Col>
           <Col xs={12} md={6}><Form.Item name="vpnEnabled" label="VPN" valuePropName="checked"><Switch /></Form.Item></Col>
+          <Col xs={12} md={6}><Form.Item name="amlEnabled" label="AML-проверка" valuePropName="checked"><Switch /></Form.Item></Col>
           <Col xs={12} md={6}><Form.Item name="transitEnabled" label="Транзитные кошельки" valuePropName="checked"><Switch /></Form.Item></Col>
         </Row>
 
