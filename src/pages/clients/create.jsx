@@ -12,7 +12,7 @@ export const ClientCreate = () => {
 
   return (
     <Create saveButtonProps={saveButtonProps} title="Новый клиент-реселлер">
-      <Form {...formProps} onFinish={submit} layout="vertical" initialValues={{ status: 'ACTIVE', ipRestricted: true, createWallet: true, portalEnabled: true, sbpEnabled: true, promptpayEnabled: true, esimEnabled: false, vpnEnabled: false }}>
+      <Form {...formProps} onFinish={submit} layout="vertical" initialValues={{ status: 'ACTIVE', ipRestricted: true, createWallet: true, portalEnabled: true, sbpEnabled: true, promptpayEnabled: true, esimEnabled: false, vpnEnabled: false, transitEnabled: false }}>
         <Row gutter={16}>
           <Col xs={24} md={12}><Form.Item name="name" label="Название" rules={[{ required: true }]}><Input placeholder="ACME Reseller" /></Form.Item></Col>
           <Col xs={24} md={12}><Form.Item name="company" label="Компания"><Input /></Form.Item></Col>
@@ -32,6 +32,7 @@ export const ClientCreate = () => {
           <Col xs={12} md={6}><Form.Item name="promptpayEnabled" label="PromptPay (Тай QR)" valuePropName="checked"><Switch /></Form.Item></Col>
           <Col xs={12} md={6}><Form.Item name="esimEnabled" label="eSIM" valuePropName="checked"><Switch /></Form.Item></Col>
           <Col xs={12} md={6}><Form.Item name="vpnEnabled" label="VPN" valuePropName="checked"><Switch /></Form.Item></Col>
+          <Col xs={12} md={6}><Form.Item name="transitEnabled" label="Транзитные кошельки" valuePropName="checked"><Switch /></Form.Item></Col>
         </Row>
 
         <Form.Item name="ipRestricted" label="Ограничение по белому списку IP" valuePropName="checked"><Switch /></Form.Item>

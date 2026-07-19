@@ -32,6 +32,7 @@ import { LedgerList } from './pages/ledger/list.jsx';
 import { CardApplicationList } from './pages/cardApplications/list.jsx';
 import { EsimList } from './pages/esims/list.jsx';
 import { VpnKeyList } from './pages/vpnKeys/list.jsx';
+import { TransitList } from './pages/transit/list.jsx';
 
 export default function App() {
   return (
@@ -53,6 +54,7 @@ export default function App() {
               { name: 'transactions', list: '/transactions', meta: { label: 'Транзакции', icon: <TransactionOutlined /> } },
               { name: 'esims', list: '/esims', meta: { label: 'eSIM', icon: <MobileOutlined /> } },
               { name: 'vpn-keys', list: '/vpn-keys', meta: { label: 'VPN-ключи', icon: <SafetyOutlined /> } },
+              { name: 'transit', list: '/transit', meta: { label: 'Транзитные кошельки', icon: <WalletOutlined /> } },
               { name: 'card-applications', list: '/card-applications', meta: { label: 'Заявки на карты', icon: <CreditCardOutlined /> } },
               { name: 'ip-whitelist', list: '/ip-whitelist', meta: { label: 'Белые IP', icon: <SafetyCertificateOutlined /> } },
               { name: 'ledger', list: '/ledger', meta: { label: 'Ledger', icon: <ProfileOutlined /> } },
@@ -84,6 +86,7 @@ export default function App() {
                 <Route path="/transactions" element={<TransactionList />} />
                 <Route path="/esims" element={<EsimList />} />
                 <Route path="/vpn-keys" element={<VpnKeyList />} />
+                <Route path="/transit" element={<TransitList />} />
                 <Route path="/card-applications" element={<CardApplicationList />} />
                 <Route path="/ip-whitelist" element={<IpWhitelistList />} />
                 <Route path="/ledger" element={<LedgerList />} />
