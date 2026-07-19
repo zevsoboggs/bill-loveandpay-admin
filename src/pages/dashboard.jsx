@@ -1,15 +1,32 @@
 import { useEffect, useState } from 'react';
-import { Row, Col, Card, Statistic, Typography, Tag, Spin, Divider, Space } from 'antd';
+import { Row, Col, Card, Statistic, Typography, Tag, Spin, Divider, Space, List, Timeline, Empty } from 'antd';
 import {
   TeamOutlined, WalletOutlined, DollarOutlined, RiseOutlined, SwapOutlined,
+  ThunderboltOutlined, CheckCircleOutlined, MobileOutlined, SafetyOutlined,
 } from '@ant-design/icons';
 import { ADMIN_API, usdt, SYSTEM_LABEL } from '../constants.js';
 import { httpClient } from '../httpClient.js';
 
 const { Title, Text } = Typography;
 
+const FEED_ICON = {
+  deposit: <WalletOutlined style={{ color: '#0f4c5c' }} />,
+  payment: <CheckCircleOutlined style={{ color: '#3f8600' }} />,
+  esim: <MobileOutlined style={{ color: '#722ed1' }} />,
+  vpn: <SafetyOutlined style={{ color: '#d4380d' }} />,
+};
+
+function timeAgo(d) {
+  const s = Math.floor((Date.now() - new Date(d).getTime()) / 1000);
+  if (s < 60) return 'только что';
+  if (s < 3600) return `${Math.floor(s / 60)} мин назад`;
+  if (s < 86400) return `${Math.floor(s / 3600)} ч назад`;
+  return new Date(d).toLocaleString('ru-RU');
+}
+
 export const Dashboard = () => {
   const [stats, setStats] = useState(null);
+  const [activity, setActivity] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -17,6 +34,8 @@ export const Dashboard = () => {
       .then((r) => setStats(r.data))
       .catch(() => {})
       .finally(() => setLoading(false));
+    httpClient.get(`${ADMIN_API}/dashboard/activity`, { params: { limit: 25 } })
+      .then((r) => setActivity(r.data)).catch(() => setActivity([]));
   }, []);
 
   if (loading) return <div style={{ textAlign: 'center', padding: 80 }}><Spin size="large" /></div>;
@@ -82,13 +101,46 @@ export const Dashboard = () => {
         </Col>
       </Row>
 
-      <Divider orientation="left">Статусы транзакций</Divider>
-      <Space wrap>
-        {Object.entries(stats.transactions.byStatus).map(([k, v]) => (
-          <Tag key={k} icon={<SwapOutlined />}>{k}: {v}</Tag>
-        ))}
-        {Object.keys(stats.transactions.byStatus).length === 0 && <Text type="secondary">Транзакций пока нет</Text>}
-      </Space>
+      <Row gutter={[16, 16]}>
+        <Col xs={24} md={14}>
+          <Divider orientation="left">Лента активности</Divider>
+          <Card styles={{ body: { maxHeight: 440, overflow: 'auto' } }}>
+            {activity === null
+              ? <div style={{ textAlign: 'center', padding: 24 }}><Spin /></div>
+              : activity.length === 0
+                ? <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="Событий пока нет" />
+                : (
+                  <Timeline
+                    items={activity.map((a) => ({
+                      dot: FEED_ICON[a.kind],
+                      children: (
+                        <div>
+                          <Space size={6} wrap>
+                            <Text strong style={{ fontSize: 13 }}>{a.client || '—'}</Text>
+                            {a.system && <Tag style={{ marginInlineEnd: 0 }}>{SYSTEM_LABEL[a.system] || a.system}</Tag>}
+                            {a.amountUsdt != null && <Text type="secondary" style={{ fontSize: 12 }}>{usdt(a.amountUsdt)}</Text>}
+                          </Space>
+                          <div style={{ fontSize: 12, color: '#59636b' }}>{a.text}</div>
+                          <div style={{ fontSize: 11, color: '#9aa5ad' }}>{timeAgo(a.at)}</div>
+                        </div>
+                      ),
+                    }))}
+                  />
+                )}
+          </Card>
+        </Col>
+        <Col xs={24} md={10}>
+          <Divider orientation="left">Статусы транзакций</Divider>
+          <Card>
+            <Space wrap>
+              {Object.entries(stats.transactions.byStatus).map(([k, v]) => (
+                <Tag key={k} icon={<SwapOutlined />}>{k}: {v}</Tag>
+              ))}
+              {Object.keys(stats.transactions.byStatus).length === 0 && <Text type="secondary">Транзакций пока нет</Text>}
+            </Space>
+          </Card>
+        </Col>
+      </Row>
     </div>
   );
 };

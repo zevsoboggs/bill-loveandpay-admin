@@ -64,7 +64,7 @@ export const AdminLayout = () => {
           <Dropdown menu={userMenu} trigger={['click']}>
             <Button type="text" style={{ height: 48, padding: '0 10px' }}>
               <Space>
-                <Avatar size={34} style={{ background: LNP_PRIMARY }}>{name.slice(0, 1).toUpperCase()}</Avatar>
+                <Avatar size={34} src={identity?.avatar || undefined} style={{ background: LNP_PRIMARY }}>{name.slice(0, 1).toUpperCase()}</Avatar>
                 {screens.sm && (
                   <span style={{ textAlign: 'left', lineHeight: 1.2 }}>
                     <div style={{ fontWeight: 600, fontSize: 13 }}>{name}</div>
