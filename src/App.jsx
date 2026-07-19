@@ -9,7 +9,7 @@ import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 import { App as AntdApp, ConfigProvider } from 'antd';
 import {
   DashboardOutlined, TeamOutlined, WalletOutlined, SwapOutlined,
-  TransactionOutlined, SafetyCertificateOutlined, ProfileOutlined, CreditCardOutlined, MobileOutlined, SafetyOutlined,
+  TransactionOutlined, SafetyCertificateOutlined, ProfileOutlined, CreditCardOutlined, MobileOutlined, SafetyOutlined, RiseOutlined,
 } from '@ant-design/icons';
 import '@refinedev/antd/dist/reset.css';
 
@@ -17,6 +17,7 @@ import { authProvider } from './authProvider.js';
 import { dataProvider } from './dataProvider.js';
 import { LoginPage } from './pages/login.jsx';
 import { Dashboard } from './pages/dashboard.jsx';
+import { Analytics } from './pages/analytics.jsx';
 import { AdminProfile } from './pages/profile.jsx';
 import { ClientList } from './pages/clients/list.jsx';
 import { ClientCreate } from './pages/clients/create.jsx';
@@ -44,6 +45,7 @@ export default function App() {
             notificationProvider={useNotificationProvider}
             resources={[
               { name: 'dashboard', list: '/', meta: { label: 'Обзор', icon: <DashboardOutlined /> } },
+              { name: 'analytics', list: '/analytics', meta: { label: 'Аналитика', icon: <RiseOutlined /> } },
               { name: 'clients', list: '/clients', create: '/clients/create', edit: '/clients/edit/:id', show: '/clients/show/:id',
                 meta: { label: 'Клиенты', icon: <TeamOutlined /> } },
               { name: 'deposits', list: '/deposits', create: '/deposits/create', meta: { label: 'Депозиты (USDT)', icon: <WalletOutlined /> } },
@@ -66,6 +68,7 @@ export default function App() {
                 }
               >
                 <Route index element={<Dashboard />} />
+                <Route path="/analytics" element={<Analytics />} />
                 <Route path="/profile" element={<AdminProfile />} />
                 <Route path="/clients">
                   <Route index element={<ClientList />} />

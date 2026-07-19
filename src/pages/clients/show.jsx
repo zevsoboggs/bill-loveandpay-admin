@@ -6,7 +6,7 @@ import {
   InputNumber, Segmented, Input, message, Table, Popconfirm, Divider, Alert,
 } from 'antd';
 import {
-  SwapOutlined, ReloadOutlined, CopyOutlined, PlusOutlined, DeleteOutlined, WalletOutlined,
+  SwapOutlined, ReloadOutlined, CopyOutlined, PlusOutlined, DeleteOutlined, WalletOutlined, DownloadOutlined,
 } from '@ant-design/icons';
 import { QRCodeCanvas } from 'qrcode.react';
 import { ADMIN_API, usdt, CLIENT_STATUS_COLOR, SYSTEM_LABEL } from '../../constants.js';
@@ -63,6 +63,15 @@ export const ClientShow = () => {
     finally { setBusy(false); }
   };
 
+  const downloadStatement = async () => {
+    try {
+      const { data } = await httpClient.get(`${ADMIN_API}/clients/${client.id}/statement`, { responseType: 'blob' });
+      const url = URL.createObjectURL(data);
+      const a = document.createElement('a'); a.href = url; a.download = `statement_${client.name}.pdf`; a.click();
+      URL.revokeObjectURL(url);
+    } catch { message.error('Ошибка выписки'); }
+  };
+
   const createWallet = async () => {
     setBusy(true);
     try { await httpClient.post(`${ADMIN_API}/clients/${client.id}/wallet`); message.success('Кошелёк создан'); refresh(); }
@@ -85,7 +94,7 @@ export const ClientShow = () => {
     <Show
       isLoading={false}
       title={<Space>{client.name} <Tag color={CLIENT_STATUS_COLOR[client.status]}>{client.status}</Tag></Space>}
-      headerButtons={<><ListButton /><Button icon={<WalletOutlined />} onClick={() => setAdjOpen(true)}>Корректировать баланс</Button><EditButton /></>}
+      headerButtons={<><ListButton /><Button icon={<DownloadOutlined />} onClick={downloadStatement}>Выписка PDF</Button><Button icon={<WalletOutlined />} onClick={() => setAdjOpen(true)}>Корректировать баланс</Button><EditButton /></>}
     >
       {/* Service access */}
       <Space wrap style={{ marginBottom: 12 }}>
