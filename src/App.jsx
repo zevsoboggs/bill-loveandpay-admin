@@ -33,6 +33,7 @@ import { CardApplicationList } from './pages/cardApplications/list.jsx';
 import { EsimList } from './pages/esims/list.jsx';
 import { VpnKeyList } from './pages/vpnKeys/list.jsx';
 import { TransitList } from './pages/transit/list.jsx';
+import { ApiLogList } from './pages/apiLogs/list.jsx';
 
 export default function App() {
   return (
@@ -57,6 +58,7 @@ export default function App() {
               { name: 'transit', list: '/transit', meta: { label: 'Транзитные кошельки', icon: <WalletOutlined /> } },
               { name: 'card-applications', list: '/card-applications', meta: { label: 'Заявки на карты', icon: <CreditCardOutlined /> } },
               { name: 'ip-whitelist', list: '/ip-whitelist', meta: { label: 'Белые IP', icon: <SafetyCertificateOutlined /> } },
+              { name: 'api-logs', list: '/api-logs', meta: { label: 'API-логи', icon: <ProfileOutlined /> } },
               { name: 'ledger', list: '/ledger', meta: { label: 'Ledger', icon: <ProfileOutlined /> } },
             ]}
             options={{ syncWithLocation: true, warnWhenUnsavedChanges: true, disableTelemetry: true }}
@@ -89,6 +91,7 @@ export default function App() {
                 <Route path="/transit" element={<TransitList />} />
                 <Route path="/card-applications" element={<CardApplicationList />} />
                 <Route path="/ip-whitelist" element={<IpWhitelistList />} />
+                <Route path="/api-logs" element={<ApiLogList />} />
                 <Route path="/ledger" element={<LedgerList />} />
                 <Route path="*" element={<ErrorComponent />} />
               </Route>
