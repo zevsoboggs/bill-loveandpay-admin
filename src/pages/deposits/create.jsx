@@ -9,7 +9,10 @@ export const DepositCreate = () => {
     <Create saveButtonProps={saveButtonProps} title="Внести USDT-депозит">
       <Form {...formProps} layout="vertical" initialValues={{ network: 'TRC-20', status: 'CREDITED' }}>
         <Form.Item name="clientId" label="Клиент" rules={[{ required: true }]}><Select {...clientSelect} showSearch placeholder="Выберите клиента" /></Form.Item>
-        <Form.Item name="amountUsdt" label="Сумма (USDT)" rules={[{ required: true }]}><InputNumber min={0} step={10} style={{ width: '100%' }} /></Form.Item>
+        <Form.Item name="amountUsdt" label="Сумма (USDT)" rules={[{ required: true }]}
+          tooltip="Мин. депозит: 1000 USDT (для eSIM-партнёров — 200 USDT)">
+          <InputNumber min={0} step={100} style={{ width: '100%' }} placeholder="от 1000 (eSIM — от 200)" /></Form.Item>
+        <Alert style={{ marginBottom: 16 }} type="warning" showMessage message="Минимальный депозит: 1000 USDT. Для партнёров только с eSIM — 200 USDT. Меньше минимума система не примет." />
         <Form.Item name="network" label="Сеть"><Select options={[{ value: 'TRC-20' }, { value: 'ERC-20' }, { value: 'BEP-20' }, { value: 'SOL' }]} /></Form.Item>
         <Form.Item name="txHash" label="TxHash (необязательно)"><Input /></Form.Item>
         <Form.Item name="status" label="Статус" tooltip="CREDITED — сразу зачислить на баланс депозита клиента">
