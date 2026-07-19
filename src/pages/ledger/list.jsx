@@ -5,7 +5,7 @@ import { makeSetFilter, ClientFilterSelect } from '../../components/filters.jsx'
 
 const { Text } = Typography;
 const KIND_COLOR = { DEPOSIT: 'blue', ALLOCATION: 'purple', PAYMENT: 'volcano', REFUND: 'gold', ADJUSTMENT: 'default' };
-const BAL_COLOR = { DEPOSIT: 'default', SBP: 'geekblue', PROMPTPAY: 'green', ESIM: 'purple' };
+const BAL_COLOR = { DEPOSIT: 'default', SBP: 'geekblue', PROMPTPAY: 'green', ESIM: 'purple', VPN: 'volcano' };
 
 export const LedgerList = () => {
   const { tableProps, setFilters } = useTable({ syncWithLocation: true, sorters: { initial: [{ field: 'createdAt', order: 'desc' }] } });
@@ -17,7 +17,7 @@ export const LedgerList = () => {
         <Select allowClear placeholder="Операция" style={{ width: 160 }} onChange={setF('kind', 'eq')}
           options={['DEPOSIT', 'ALLOCATION', 'PAYMENT', 'REFUND', 'ADJUSTMENT'].map((v) => ({ value: v }))} />
         <Select allowClear placeholder="Баланс" style={{ width: 150 }} onChange={setF('balanceType', 'eq')}
-          options={['DEPOSIT', 'SBP', 'PROMPTPAY', 'ESIM'].map((v) => ({ value: v }))} />
+          options={['DEPOSIT', 'SBP', 'PROMPTPAY', 'ESIM', 'VPN'].map((v) => ({ value: v }))} />
       </Space>
       <Table {...tableProps} rowKey="id" scroll={{ x: 900 }}>
         <Table.Column dataIndex={['client', 'name']} title="Клиент" render={(v) => v || '—'} />

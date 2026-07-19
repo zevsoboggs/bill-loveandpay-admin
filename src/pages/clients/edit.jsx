@@ -17,11 +17,12 @@ export const ClientEdit = () => {
       sbpMarginPct: fractionToPct(record.sbpMargin),
       promptpayMarginPct: fractionToPct(record.promptpayMargin),
       esimMarginPct: fractionToPct(record.esimMargin),
+      vpnMarginPct: fractionToPct(record.vpnMargin),
     });
   }, [record]);
 
-  const submit = ({ sbpMarginPct, promptpayMarginPct, esimMarginPct, ...rest }) =>
-    onFinish({ ...rest, sbpMargin: pctToFraction(sbpMarginPct), promptpayMargin: pctToFraction(promptpayMarginPct), esimMargin: pctToFraction(esimMarginPct) });
+  const submit = ({ sbpMarginPct, promptpayMarginPct, esimMarginPct, vpnMarginPct, ...rest }) =>
+    onFinish({ ...rest, sbpMargin: pctToFraction(sbpMarginPct), promptpayMargin: pctToFraction(promptpayMarginPct), esimMargin: pctToFraction(esimMarginPct), vpnMargin: pctToFraction(vpnMarginPct) });
 
   return (
     <Edit saveButtonProps={saveButtonProps} title="Редактирование клиента">
@@ -32,16 +33,18 @@ export const ClientEdit = () => {
           <Col xs={24} md={12}><Form.Item name="email" label="Email"><Input type="email" /></Form.Item></Col>
           <Col xs={24} md={12}><Form.Item name="status" label="Статус"><Select options={[
             { value: 'ACTIVE', label: 'ACTIVE' }, { value: 'PENDING', label: 'PENDING' }, { value: 'SUSPENDED', label: 'SUSPENDED' }]} /></Form.Item></Col>
-          <Col xs={24} md={8}><Form.Item name="sbpMarginPct" label="Наценка СБП, %" tooltip="Пусто = дефолт (4%)"><InputNumber min={0} max={100} step={0.1} addonAfter="%" placeholder="3.3" style={{ width: '100%' }} /></Form.Item></Col>
-          <Col xs={24} md={8}><Form.Item name="promptpayMarginPct" label="Наценка PromptPay, %" tooltip="Пусто = дефолт (4%)"><InputNumber min={0} max={100} step={0.1} addonAfter="%" placeholder="4" style={{ width: '100%' }} /></Form.Item></Col>
-          <Col xs={24} md={8}><Form.Item name="esimMarginPct" label="Наценка eSIM, %" tooltip="Пусто = дефолт (15%)"><InputNumber min={0} max={100} step={0.5} addonAfter="%" placeholder="15" style={{ width: '100%' }} /></Form.Item></Col>
+          <Col xs={24} md={6}><Form.Item name="sbpMarginPct" label="Наценка СБП, %" tooltip="Пусто = дефолт (4%)"><InputNumber min={0} max={100} step={0.1} addonAfter="%" placeholder="3.3" style={{ width: '100%' }} /></Form.Item></Col>
+          <Col xs={24} md={6}><Form.Item name="promptpayMarginPct" label="Наценка PromptPay, %" tooltip="Пусто = дефолт (4%)"><InputNumber min={0} max={100} step={0.1} addonAfter="%" placeholder="4" style={{ width: '100%' }} /></Form.Item></Col>
+          <Col xs={24} md={6}><Form.Item name="esimMarginPct" label="Наценка eSIM, %" tooltip="Пусто = дефолт (15%)"><InputNumber min={0} max={100} step={0.5} addonAfter="%" placeholder="15" style={{ width: '100%' }} /></Form.Item></Col>
+          <Col xs={24} md={6}><Form.Item name="vpnMarginPct" label="Наценка VPN, %" tooltip="Пусто = дефолт (20%)"><InputNumber min={0} max={100} step={0.5} addonAfter="%" placeholder="20" style={{ width: '100%' }} /></Form.Item></Col>
         </Row>
 
         <Divider orientation="left">Доступ к услугам</Divider>
         <Row gutter={16}>
-          <Col xs={24} md={8}><Form.Item name="sbpEnabled" label="СБП (USDT)" valuePropName="checked"><Switch /></Form.Item></Col>
-          <Col xs={24} md={8}><Form.Item name="promptpayEnabled" label="PromptPay (Тай QR)" valuePropName="checked"><Switch /></Form.Item></Col>
-          <Col xs={24} md={8}><Form.Item name="esimEnabled" label="eSIM" valuePropName="checked"><Switch /></Form.Item></Col>
+          <Col xs={12} md={6}><Form.Item name="sbpEnabled" label="СБП (USDT)" valuePropName="checked"><Switch /></Form.Item></Col>
+          <Col xs={12} md={6}><Form.Item name="promptpayEnabled" label="PromptPay (Тай QR)" valuePropName="checked"><Switch /></Form.Item></Col>
+          <Col xs={12} md={6}><Form.Item name="esimEnabled" label="eSIM" valuePropName="checked"><Switch /></Form.Item></Col>
+          <Col xs={12} md={6}><Form.Item name="vpnEnabled" label="VPN" valuePropName="checked"><Switch /></Form.Item></Col>
         </Row>
 
         <Form.Item name="ipRestricted" label="Ограничение по белому списку IP" valuePropName="checked"><Switch /></Form.Item>

@@ -93,6 +93,7 @@ export const ClientShow = () => {
         <Tag color={client.sbpEnabled ? 'geekblue' : 'default'}>{client.sbpEnabled ? 'СБП ✓' : 'СБП ✕'}</Tag>
         <Tag color={client.promptpayEnabled ? 'green' : 'default'}>{client.promptpayEnabled ? 'PromptPay ✓' : 'PromptPay ✕'}</Tag>
         <Tag color={client.esimEnabled ? 'purple' : 'default'}>{client.esimEnabled ? 'eSIM ✓' : 'eSIM ✕'}</Tag>
+        <Tag color={client.vpnEnabled ? 'volcano' : 'default'}>{client.vpnEnabled ? 'VPN ✓' : 'VPN ✕'}</Tag>
       </Space>
 
       {/* Balances */}
@@ -103,6 +104,7 @@ export const ClientShow = () => {
         <Col xs={8} md={6}><Card><Statistic title={SYSTEM_LABEL.SBP} value={client.sbpBalance} precision={2} suffix="USDT" valueStyle={{ color: '#2f54eb' }} /></Card></Col>
         <Col xs={8} md={6}><Card><Statistic title={SYSTEM_LABEL.PROMPTPAY} value={client.promptpayBalance} precision={2} suffix="USDT" valueStyle={{ color: '#389e0d' }} /></Card></Col>
         <Col xs={8} md={6}><Card><Statistic title={SYSTEM_LABEL.ESIM} value={client.esimBalance} precision={2} suffix="USDT" valueStyle={{ color: '#722ed1' }} /></Card></Col>
+        <Col xs={12} md={6}><Card><Statistic title={SYSTEM_LABEL.VPN} value={client.vpnBalance} precision={2} suffix="USDT" valueStyle={{ color: '#d4380d' }} /></Card></Col>
       </Row>
 
       <Divider orientation="left">Реквизиты и API-доступ</Divider>
@@ -161,7 +163,7 @@ export const ClientShow = () => {
           description="Положительная сумма переносит с депозита в систему. Отрицательная — возвращает из системы на депозит." />
         <Form form={distForm} layout="vertical" onFinish={distribute} initialValues={{ system: 'SBP' }}>
           <Form.Item name="system" label="Система"><Segmented options={[
-            { value: 'SBP', label: SYSTEM_LABEL.SBP }, { value: 'PROMPTPAY', label: SYSTEM_LABEL.PROMPTPAY }, { value: 'ESIM', label: SYSTEM_LABEL.ESIM }]} block /></Form.Item>
+            { value: 'SBP', label: SYSTEM_LABEL.SBP }, { value: 'PROMPTPAY', label: SYSTEM_LABEL.PROMPTPAY }, { value: 'ESIM', label: SYSTEM_LABEL.ESIM }, { value: 'VPN', label: SYSTEM_LABEL.VPN }]} block /></Form.Item>
           <Form.Item name="amount" label="Сумма (USDT)" rules={[{ required: true }]}><InputNumber style={{ width: '100%' }} step={10} placeholder="напр. 500 или -100" /></Form.Item>
           <Form.Item name="note" label="Комментарий"><Input placeholder="необязательно" /></Form.Item>
         </Form>
@@ -178,10 +180,11 @@ export const ClientShow = () => {
           <Descriptions.Item label="СБП">{usdt(client.sbpBalance)}</Descriptions.Item>
           <Descriptions.Item label="PromptPay">{usdt(client.promptpayBalance)}</Descriptions.Item>
           <Descriptions.Item label="eSIM">{usdt(client.esimBalance)}</Descriptions.Item>
+          <Descriptions.Item label="VPN">{usdt(client.vpnBalance)}</Descriptions.Item>
         </Descriptions>
         <Form form={adjForm} layout="vertical" onFinish={adjustBalance} initialValues={{ balanceType: 'DEPOSIT' }}>
           <Form.Item name="balanceType" label="Баланс"><Segmented block options={[
-            { value: 'DEPOSIT', label: 'Депозит' }, { value: 'SBP', label: 'СБП' }, { value: 'PROMPTPAY', label: 'PromptPay' }, { value: 'ESIM', label: 'eSIM' }]} /></Form.Item>
+            { value: 'DEPOSIT', label: 'Депозит' }, { value: 'SBP', label: 'СБП' }, { value: 'PROMPTPAY', label: 'PromptPay' }, { value: 'ESIM', label: 'eSIM' }, { value: 'VPN', label: 'VPN' }]} /></Form.Item>
           <Form.Item name="amount" label="Сумма (USDT)" rules={[{ required: true }]}><InputNumber style={{ width: '100%' }} step={10} placeholder="напр. 100 или -50" /></Form.Item>
           <Form.Item name="note" label="Причина / комментарий"><Input placeholder="напр. компенсация, корректировка ошибки" /></Form.Item>
         </Form>

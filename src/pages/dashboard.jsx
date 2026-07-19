@@ -48,28 +48,36 @@ export const Dashboard = () => {
 
       <Divider orientation="left">Балансы систем</Divider>
       <Row gutter={[16, 16]}>
-        <Col xs={24} md={8}>
+        <Col xs={12} md={6}>
           <Card>
             <Space style={{ marginBottom: 8 }}><Tag color="geekblue">{SYSTEM_LABEL.SBP}</Tag></Space>
             <Statistic title="Баланс клиентов" value={b.sbpUsdt} precision={2} suffix="USDT" />
             <Text type="success">+{usdt(sys.SBP.marginUsdt)} прибыль</Text>
-            <br /><Text type="secondary">Оборот {usdt(sys.SBP.volumeUsdt)} · Транзакций: {sys.SBP.count}</Text>
+            <br /><Text type="secondary">Транзакций: {sys.SBP.count}</Text>
           </Card>
         </Col>
-        <Col xs={24} md={8}>
+        <Col xs={12} md={6}>
           <Card>
             <Space style={{ marginBottom: 8 }}><Tag color="green">{SYSTEM_LABEL.PROMPTPAY}</Tag></Space>
             <Statistic title="Баланс клиентов" value={b.promptpayUsdt} precision={2} suffix="USDT" />
             <Text type="success">+{usdt(sys.PROMPTPAY.marginUsdt)} прибыль</Text>
-            <br /><Text type="secondary">Оборот {usdt(sys.PROMPTPAY.volumeUsdt)} · Транзакций: {sys.PROMPTPAY.count}</Text>
+            <br /><Text type="secondary">Транзакций: {sys.PROMPTPAY.count}</Text>
           </Card>
         </Col>
-        <Col xs={24} md={8}>
+        <Col xs={12} md={6}>
           <Card>
             <Space style={{ marginBottom: 8 }}><Tag color="purple">{SYSTEM_LABEL.ESIM}</Tag></Space>
             <Statistic title="Баланс клиентов" value={b.esimUsdt} precision={2} suffix="USDT" />
             <Text type="success">+{usdt(sys.ESIM?.marginUsdt)} прибыль</Text>
-            <br /><Text type="secondary">Оборот {usdt(sys.ESIM?.volumeUsdt)} · Транзакций: {sys.ESIM?.count || 0}</Text>
+            <br /><Text type="secondary">Транзакций: {sys.ESIM?.count || 0}</Text>
+          </Card>
+        </Col>
+        <Col xs={12} md={6}>
+          <Card>
+            <Space style={{ marginBottom: 8 }}><Tag color="volcano">{SYSTEM_LABEL.VPN}</Tag></Space>
+            <Statistic title="Баланс клиентов" value={b.vpnUsdt} precision={2} suffix="USDT" />
+            <Text type="success">+{usdt(sys.VPN?.marginUsdt)} прибыль</Text>
+            <br /><Text type="secondary">Транзакций: {sys.VPN?.count || 0}</Text>
           </Card>
         </Col>
       </Row>

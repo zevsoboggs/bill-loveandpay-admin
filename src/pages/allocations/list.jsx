@@ -53,7 +53,7 @@ export const AllocationList = () => {
         <Form form={form} layout="vertical" onFinish={submit} initialValues={{ system: 'SBP' }}>
           <Form.Item name="clientId" label="Клиент" rules={[{ required: true }]}><Select {...clientSelect} showSearch placeholder="Выберите клиента" /></Form.Item>
           <Form.Item name="system" label="Система"><Segmented block options={[
-            { value: 'SBP', label: SYSTEM_LABEL.SBP }, { value: 'PROMPTPAY', label: SYSTEM_LABEL.PROMPTPAY }, { value: 'ESIM', label: SYSTEM_LABEL.ESIM }]} /></Form.Item>
+            { value: 'SBP', label: SYSTEM_LABEL.SBP }, { value: 'PROMPTPAY', label: SYSTEM_LABEL.PROMPTPAY }, { value: 'ESIM', label: SYSTEM_LABEL.ESIM }, { value: 'VPN', label: SYSTEM_LABEL.VPN }]} /></Form.Item>
           <Form.Item name="amount" label="Сумма (USDT)" tooltip="Отрицательная — вернуть из системы на депозит" rules={[{ required: true }]}>
             <InputNumber style={{ width: '100%' }} step={10} placeholder="напр. 500 или -100" /></Form.Item>
           <Form.Item name="note" label="Комментарий"><Input /></Form.Item>

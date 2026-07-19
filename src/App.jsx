@@ -9,7 +9,7 @@ import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 import { App as AntdApp, ConfigProvider } from 'antd';
 import {
   DashboardOutlined, TeamOutlined, WalletOutlined, SwapOutlined,
-  TransactionOutlined, SafetyCertificateOutlined, ProfileOutlined, CreditCardOutlined, MobileOutlined,
+  TransactionOutlined, SafetyCertificateOutlined, ProfileOutlined, CreditCardOutlined, MobileOutlined, SafetyOutlined,
 } from '@ant-design/icons';
 import '@refinedev/antd/dist/reset.css';
 
@@ -30,6 +30,7 @@ import { IpWhitelistList } from './pages/ipwhitelist/list.jsx';
 import { LedgerList } from './pages/ledger/list.jsx';
 import { CardApplicationList } from './pages/cardApplications/list.jsx';
 import { EsimList } from './pages/esims/list.jsx';
+import { VpnKeyList } from './pages/vpnKeys/list.jsx';
 
 export default function App() {
   return (
@@ -49,6 +50,7 @@ export default function App() {
               { name: 'allocations', list: '/allocations', meta: { label: 'Распределение', icon: <SwapOutlined /> } },
               { name: 'transactions', list: '/transactions', meta: { label: 'Транзакции', icon: <TransactionOutlined /> } },
               { name: 'esims', list: '/esims', meta: { label: 'eSIM', icon: <MobileOutlined /> } },
+              { name: 'vpn-keys', list: '/vpn-keys', meta: { label: 'VPN-ключи', icon: <SafetyOutlined /> } },
               { name: 'card-applications', list: '/card-applications', meta: { label: 'Заявки на карты', icon: <CreditCardOutlined /> } },
               { name: 'ip-whitelist', list: '/ip-whitelist', meta: { label: 'Белые IP', icon: <SafetyCertificateOutlined /> } },
               { name: 'ledger', list: '/ledger', meta: { label: 'Ledger', icon: <ProfileOutlined /> } },
@@ -78,6 +80,7 @@ export default function App() {
                 <Route path="/allocations" element={<AllocationList />} />
                 <Route path="/transactions" element={<TransactionList />} />
                 <Route path="/esims" element={<EsimList />} />
+                <Route path="/vpn-keys" element={<VpnKeyList />} />
                 <Route path="/card-applications" element={<CardApplicationList />} />
                 <Route path="/ip-whitelist" element={<IpWhitelistList />} />
                 <Route path="/ledger" element={<LedgerList />} />

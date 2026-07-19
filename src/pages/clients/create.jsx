@@ -7,29 +7,31 @@ const pctToFraction = (p) => (p === undefined || p === null || p === '' ? null :
 export const ClientCreate = () => {
   const { formProps, saveButtonProps, onFinish } = useForm();
 
-  const submit = ({ sbpMarginPct, promptpayMarginPct, esimMarginPct, ...rest }) =>
-    onFinish({ ...rest, sbpMargin: pctToFraction(sbpMarginPct), promptpayMargin: pctToFraction(promptpayMarginPct), esimMargin: pctToFraction(esimMarginPct) });
+  const submit = ({ sbpMarginPct, promptpayMarginPct, esimMarginPct, vpnMarginPct, ...rest }) =>
+    onFinish({ ...rest, sbpMargin: pctToFraction(sbpMarginPct), promptpayMargin: pctToFraction(promptpayMarginPct), esimMargin: pctToFraction(esimMarginPct), vpnMargin: pctToFraction(vpnMarginPct) });
 
   return (
     <Create saveButtonProps={saveButtonProps} title="Новый клиент-реселлер">
-      <Form {...formProps} onFinish={submit} layout="vertical" initialValues={{ status: 'ACTIVE', ipRestricted: true, createWallet: true, portalEnabled: true, sbpEnabled: true, promptpayEnabled: true, esimEnabled: false }}>
+      <Form {...formProps} onFinish={submit} layout="vertical" initialValues={{ status: 'ACTIVE', ipRestricted: true, createWallet: true, portalEnabled: true, sbpEnabled: true, promptpayEnabled: true, esimEnabled: false, vpnEnabled: false }}>
         <Row gutter={16}>
           <Col xs={24} md={12}><Form.Item name="name" label="Название" rules={[{ required: true }]}><Input placeholder="ACME Reseller" /></Form.Item></Col>
           <Col xs={24} md={12}><Form.Item name="company" label="Компания"><Input /></Form.Item></Col>
           <Col xs={24} md={12}><Form.Item name="email" label="Email"><Input type="email" /></Form.Item></Col>
           <Col xs={24} md={12}><Form.Item name="status" label="Статус"><Select options={[
             { value: 'ACTIVE', label: 'ACTIVE' }, { value: 'PENDING', label: 'PENDING' }, { value: 'SUSPENDED', label: 'SUSPENDED' }]} /></Form.Item></Col>
-          <Col xs={24} md={8}><Form.Item name="sbpMarginPct" label="Наценка СБП, %" tooltip="Например 3.3. Пусто = дефолт (4%)"><InputNumber min={0} max={100} step={0.1} addonAfter="%" placeholder="3.3" style={{ width: '100%' }} /></Form.Item></Col>
-          <Col xs={24} md={8}><Form.Item name="promptpayMarginPct" label="Наценка PromptPay, %" tooltip="Пусто = дефолт (4%)"><InputNumber min={0} max={100} step={0.1} addonAfter="%" placeholder="4" style={{ width: '100%' }} /></Form.Item></Col>
-          <Col xs={24} md={8}><Form.Item name="esimMarginPct" label="Наценка eSIM, %" tooltip="Пусто = дефолт (15%)"><InputNumber min={0} max={100} step={0.5} addonAfter="%" placeholder="15" style={{ width: '100%' }} /></Form.Item></Col>
+          <Col xs={24} md={6}><Form.Item name="sbpMarginPct" label="Наценка СБП, %" tooltip="Например 3.3. Пусто = дефолт (4%)"><InputNumber min={0} max={100} step={0.1} addonAfter="%" placeholder="3.3" style={{ width: '100%' }} /></Form.Item></Col>
+          <Col xs={24} md={6}><Form.Item name="promptpayMarginPct" label="Наценка PromptPay, %" tooltip="Пусто = дефолт (4%)"><InputNumber min={0} max={100} step={0.1} addonAfter="%" placeholder="4" style={{ width: '100%' }} /></Form.Item></Col>
+          <Col xs={24} md={6}><Form.Item name="esimMarginPct" label="Наценка eSIM, %" tooltip="Пусто = дефолт (15%)"><InputNumber min={0} max={100} step={0.5} addonAfter="%" placeholder="15" style={{ width: '100%' }} /></Form.Item></Col>
+          <Col xs={24} md={6}><Form.Item name="vpnMarginPct" label="Наценка VPN, %" tooltip="Пусто = дефолт (20%)"><InputNumber min={0} max={100} step={0.5} addonAfter="%" placeholder="20" style={{ width: '100%' }} /></Form.Item></Col>
         </Row>
 
         <Divider orientation="left">Доступ к услугам</Divider>
         <Alert style={{ marginBottom: 12 }} type="info" showMessage message="Выберите, какие услуги доступны партнёру. Отключённые услуги скрыты в кабинете и отклоняются на API." />
         <Row gutter={16}>
-          <Col xs={24} md={8}><Form.Item name="sbpEnabled" label="СБП (USDT)" valuePropName="checked"><Switch /></Form.Item></Col>
-          <Col xs={24} md={8}><Form.Item name="promptpayEnabled" label="PromptPay (Тай QR)" valuePropName="checked"><Switch /></Form.Item></Col>
-          <Col xs={24} md={8}><Form.Item name="esimEnabled" label="eSIM" valuePropName="checked"><Switch /></Form.Item></Col>
+          <Col xs={12} md={6}><Form.Item name="sbpEnabled" label="СБП (USDT)" valuePropName="checked"><Switch /></Form.Item></Col>
+          <Col xs={12} md={6}><Form.Item name="promptpayEnabled" label="PromptPay (Тай QR)" valuePropName="checked"><Switch /></Form.Item></Col>
+          <Col xs={12} md={6}><Form.Item name="esimEnabled" label="eSIM" valuePropName="checked"><Switch /></Form.Item></Col>
+          <Col xs={12} md={6}><Form.Item name="vpnEnabled" label="VPN" valuePropName="checked"><Switch /></Form.Item></Col>
         </Row>
 
         <Form.Item name="ipRestricted" label="Ограничение по белому списку IP" valuePropName="checked"><Switch /></Form.Item>

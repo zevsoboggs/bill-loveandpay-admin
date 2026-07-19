@@ -18,7 +18,7 @@ export const TransactionList = () => {
   return (
     <List title="Транзакции" headerButtons={
       <Segmented value={system} onChange={setSystem} options={[
-        { value: 'ALL', label: 'Все' }, { value: 'SBP', label: SYSTEM_LABEL.SBP }, { value: 'PROMPTPAY', label: SYSTEM_LABEL.PROMPTPAY }, { value: 'ESIM', label: SYSTEM_LABEL.ESIM }]} />
+        { value: 'ALL', label: 'Все' }, { value: 'SBP', label: SYSTEM_LABEL.SBP }, { value: 'PROMPTPAY', label: SYSTEM_LABEL.PROMPTPAY }, { value: 'ESIM', label: SYSTEM_LABEL.ESIM }, { value: 'VPN', label: SYSTEM_LABEL.VPN }]} />
     }>
       <Space wrap style={{ marginBottom: 16 }}>
         <ClientFilterSelect onChange={setF('clientId', 'eq')} />
