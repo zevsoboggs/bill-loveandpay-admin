@@ -33,6 +33,7 @@ import { CardApplicationList } from './pages/cardApplications/list.jsx';
 import { EsimList } from './pages/esims/list.jsx';
 import { VpnKeyList } from './pages/vpnKeys/list.jsx';
 import { AmlCheckList } from './pages/aml/list.jsx';
+import { CorporateCardList } from './pages/corporateCards/list.jsx';
 import { TransitList } from './pages/transit/list.jsx';
 import { ApiLogList } from './pages/apiLogs/list.jsx';
 
@@ -58,6 +59,7 @@ export default function App() {
               { name: 'vpn-keys', list: '/vpn-keys', meta: { label: 'VPN-ключи', icon: <SafetyOutlined /> } },
               { name: 'aml-checks', list: '/aml-checks', meta: { label: 'AML-проверки', icon: <SafetyCertificateOutlined /> } },
               { name: 'transit', list: '/transit', meta: { label: 'Транзитные кошельки', icon: <WalletOutlined /> } },
+              { name: 'corporate-cards', list: '/corporate-cards', meta: { label: 'Корпоративные карты', icon: <CreditCardOutlined /> } },
               { name: 'card-applications', list: '/card-applications', meta: { label: 'Заявки на карты', icon: <CreditCardOutlined /> } },
               { name: 'ip-whitelist', list: '/ip-whitelist', meta: { label: 'Белые IP', icon: <SafetyCertificateOutlined /> } },
               { name: 'api-logs', list: '/api-logs', meta: { label: 'API-логи', icon: <ProfileOutlined /> } },
@@ -91,6 +93,7 @@ export default function App() {
                 <Route path="/esims" element={<EsimList />} />
                 <Route path="/vpn-keys" element={<VpnKeyList />} />
                 <Route path="/aml-checks" element={<AmlCheckList />} />
+                <Route path="/corporate-cards" element={<CorporateCardList />} />
                 <Route path="/transit" element={<TransitList />} />
                 <Route path="/card-applications" element={<CardApplicationList />} />
                 <Route path="/ip-whitelist" element={<IpWhitelistList />} />
