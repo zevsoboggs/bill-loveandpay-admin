@@ -9,7 +9,7 @@ import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 import { App as AntdApp, ConfigProvider } from 'antd';
 import {
   DashboardOutlined, TeamOutlined, WalletOutlined, SwapOutlined,
-  TransactionOutlined, SafetyCertificateOutlined, ProfileOutlined, CreditCardOutlined, MobileOutlined, SafetyOutlined, RiseOutlined,
+  TransactionOutlined, SafetyCertificateOutlined, ProfileOutlined, CreditCardOutlined, MobileOutlined, SafetyOutlined, RiseOutlined, ExportOutlined,
 } from '@ant-design/icons';
 import '@refinedev/antd/dist/reset.css';
 
@@ -34,6 +34,7 @@ import { EsimList } from './pages/esims/list.jsx';
 import { VpnKeyList } from './pages/vpnKeys/list.jsx';
 import { AmlCheckList } from './pages/aml/list.jsx';
 import { CorporateCardList } from './pages/corporateCards/list.jsx';
+import { DepositWalletList } from './pages/depositWallets/list.jsx';
 import { TransitList } from './pages/transit/list.jsx';
 import { ApiLogList } from './pages/apiLogs/list.jsx';
 
@@ -53,6 +54,7 @@ export default function App() {
               { name: 'clients', list: '/clients', create: '/clients/create', edit: '/clients/edit/:id', show: '/clients/show/:id',
                 meta: { label: 'Клиенты', icon: <TeamOutlined /> } },
               { name: 'deposits', list: '/deposits', create: '/deposits/create', meta: { label: 'Депозиты (USDT)', icon: <WalletOutlined /> } },
+              { name: 'deposit-wallets', list: '/deposit-wallets', meta: { label: 'Вывод депозитов', icon: <ExportOutlined /> } },
               { name: 'allocations', list: '/allocations', meta: { label: 'Распределение', icon: <SwapOutlined /> } },
               { name: 'transactions', list: '/transactions', meta: { label: 'Транзакции', icon: <TransactionOutlined /> } },
               { name: 'esims', list: '/esims', meta: { label: 'eSIM', icon: <MobileOutlined /> } },
@@ -94,6 +96,7 @@ export default function App() {
                 <Route path="/vpn-keys" element={<VpnKeyList />} />
                 <Route path="/aml-checks" element={<AmlCheckList />} />
                 <Route path="/corporate-cards" element={<CorporateCardList />} />
+                <Route path="/deposit-wallets" element={<DepositWalletList />} />
                 <Route path="/transit" element={<TransitList />} />
                 <Route path="/card-applications" element={<CardApplicationList />} />
                 <Route path="/ip-whitelist" element={<IpWhitelistList />} />
