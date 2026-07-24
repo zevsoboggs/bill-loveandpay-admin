@@ -9,7 +9,7 @@ import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 import { App as AntdApp, ConfigProvider } from 'antd';
 import {
   DashboardOutlined, TeamOutlined, WalletOutlined, SwapOutlined,
-  TransactionOutlined, SafetyCertificateOutlined, ProfileOutlined, CreditCardOutlined, MobileOutlined, SafetyOutlined, RiseOutlined, ExportOutlined,
+  TransactionOutlined, SafetyCertificateOutlined, ProfileOutlined, CreditCardOutlined, MobileOutlined, SafetyOutlined, RiseOutlined, ExportOutlined, CustomerServiceOutlined,
 } from '@ant-design/icons';
 import '@refinedev/antd/dist/reset.css';
 
@@ -35,6 +35,7 @@ import { VpnKeyList } from './pages/vpnKeys/list.jsx';
 import { AmlCheckList } from './pages/aml/list.jsx';
 import { CorporateCardList } from './pages/corporateCards/list.jsx';
 import { DepositWalletList } from './pages/depositWallets/list.jsx';
+import { TicketList } from './pages/tickets/list.jsx';
 import { TransitList } from './pages/transit/list.jsx';
 import { ApiLogList } from './pages/apiLogs/list.jsx';
 
@@ -57,6 +58,7 @@ export default function App() {
               { name: 'deposit-wallets', list: '/deposit-wallets', meta: { label: 'Вывод депозитов', icon: <ExportOutlined /> } },
               { name: 'allocations', list: '/allocations', meta: { label: 'Распределение', icon: <SwapOutlined /> } },
               { name: 'transactions', list: '/transactions', meta: { label: 'Транзакции', icon: <TransactionOutlined /> } },
+              { name: 'tickets', list: '/tickets', meta: { label: 'Обращения', icon: <CustomerServiceOutlined /> } },
               { name: 'esims', list: '/esims', meta: { label: 'eSIM', icon: <MobileOutlined /> } },
               { name: 'vpn-keys', list: '/vpn-keys', meta: { label: 'VPN-ключи', icon: <SafetyOutlined /> } },
               { name: 'aml-checks', list: '/aml-checks', meta: { label: 'AML-проверки', icon: <SafetyCertificateOutlined /> } },
@@ -92,6 +94,7 @@ export default function App() {
                 </Route>
                 <Route path="/allocations" element={<AllocationList />} />
                 <Route path="/transactions" element={<TransactionList />} />
+                <Route path="/tickets" element={<TicketList />} />
                 <Route path="/esims" element={<EsimList />} />
                 <Route path="/vpn-keys" element={<VpnKeyList />} />
                 <Route path="/aml-checks" element={<AmlCheckList />} />

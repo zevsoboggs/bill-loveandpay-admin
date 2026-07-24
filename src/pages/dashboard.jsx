@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Row, Col, Card, Statistic, Typography, Tag, Spin, Divider, Space, List, Timeline, Empty } from 'antd';
 import {
   TeamOutlined, WalletOutlined, DollarOutlined, RiseOutlined, SwapOutlined,
-  ThunderboltOutlined, CheckCircleOutlined, MobileOutlined, SafetyOutlined, SafetyCertificateOutlined,
+  ThunderboltOutlined, CheckCircleOutlined, MobileOutlined, SafetyOutlined, SafetyCertificateOutlined, CustomerServiceOutlined,
 } from '@ant-design/icons';
 import { ADMIN_API, usdt, SYSTEM_LABEL } from '../constants.js';
 import { httpClient } from '../httpClient.js';
@@ -15,6 +15,7 @@ const FEED_ICON = {
   esim: <MobileOutlined style={{ color: '#722ed1' }} />,
   vpn: <SafetyOutlined style={{ color: '#d4380d' }} />,
   aml: <SafetyCertificateOutlined style={{ color: '#08979c' }} />,
+  ticket: <CustomerServiceOutlined style={{ color: '#0f4c5c' }} />,
 };
 
 function timeAgo(d) {
