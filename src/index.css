@@ -23,3 +23,7 @@ body {
    AntD's native centering, just make the menu fill the rail so icons line up. */
 .ant-menu-inline:not(.ant-menu-inline-collapsed) .ant-menu-item { padding-inline: 16px !important; }
 .ant-menu-inline-collapsed { width: 100% !important; }
+
+/* Sidebar nav scrolls but hides its scrollbar (still scrollable by wheel/touch). */
+.lnp-nav-scroll { scrollbar-width: none; -ms-overflow-style: none; }
+.lnp-nav-scroll::-webkit-scrollbar { display: none; }

@@ -57,7 +57,7 @@ export const AdminLayout = () => {
       <div style={{ padding: mini ? '22px 0' : '22px 22px 18px' }}>
         <Brand collapsed={mini} height={mini ? 26 : 30} sub="Биллинг · Админ" />
       </div>
-      <div style={{ flex: 1, overflowY: 'auto', overflowX: 'hidden', padding: '0 10px 8px' }}>
+      <div className="lnp-nav-scroll" style={{ flex: 1, overflowY: 'auto', overflowX: 'hidden', padding: '0 10px 8px' }}>
         <Menu mode="inline" inlineCollapsed={mini} selectedKeys={[loc.pathname]} items={items}
           onClick={(e) => { nav(e.key); if (inDrawer) setDrawerOpen(false); }}
           style={{ borderInlineEnd: 0, background: 'transparent', fontSize: 14.5 }} />
