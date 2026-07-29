@@ -42,7 +42,23 @@ import { ApiLogList } from './pages/apiLogs/list.jsx';
 export default function App() {
   return (
     <BrowserRouter>
-      <ConfigProvider theme={{ token: { colorPrimary: LNP_PRIMARY, colorInfo: LNP_PRIMARY, borderRadius: 8 }, components: { Menu: { itemSelectedBg: '#e8f2f4', itemSelectedColor: LNP_PRIMARY } } }}>
+      <ConfigProvider theme={{
+        token: { colorPrimary: LNP_PRIMARY, colorInfo: LNP_PRIMARY, borderRadius: 10, colorBgLayout: 'transparent', colorTextHeading: '#1f2a30' },
+        components: {
+          Menu: {
+            itemSelectedBg: '#e8f2f4', itemSelectedColor: LNP_PRIMARY, itemColor: '#4a565d',
+            itemHoverBg: '#f2f6f7', itemHeight: 44, itemBorderRadius: 12, itemMarginInline: 0, itemMarginBlock: 3,
+            iconSize: 17, collapsedIconSize: 18,
+          },
+          Card: { borderRadiusLG: 16, boxShadowTertiary: '0 4px 18px rgba(15,76,92,0.05)' },
+          Button: { borderRadius: 10 },
+          Input: { borderRadius: 10 },
+          Segmented: { borderRadius: 10 },
+          Modal: { borderRadiusLG: 18 },
+          Drawer: { borderRadiusLG: 18 },
+          Table: { borderRadiusLG: 14, headerBg: '#f7f9fa' },
+        },
+      }}>
         <AntdApp>
           <Refine
             authProvider={authProvider}
