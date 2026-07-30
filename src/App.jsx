@@ -83,7 +83,7 @@ export default function App() {
               { name: 'card-applications', list: '/card-applications', meta: { label: 'Заявки на карты', icon: <CreditCardOutlined /> } },
               { name: 'ip-whitelist', list: '/ip-whitelist', meta: { label: 'Белые IP', icon: <SafetyCertificateOutlined /> } },
               { name: 'api-logs', list: '/api-logs', meta: { label: 'API-логи', icon: <ProfileOutlined /> } },
-              { name: 'ledger', list: '/ledger', meta: { label: 'Ledger', icon: <ProfileOutlined /> } },
+              { name: 'ledger', list: '/ledger', meta: { label: 'Движения средств', icon: <ProfileOutlined /> } },
             ]}
             options={{ syncWithLocation: true, warnWhenUnsavedChanges: true, disableTelemetry: true }}
           >

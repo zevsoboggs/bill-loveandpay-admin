@@ -11,7 +11,7 @@ export const LedgerList = () => {
   const { tableProps, setFilters } = useTable({ syncWithLocation: true, sorters: { initial: [{ field: 'createdAt', order: 'desc' }] } });
   const setF = makeSetFilter(setFilters);
   return (
-    <List title="Ledger (аудит балансов)">
+    <List title="Движения средств (аудит балансов)">
       <Space wrap style={{ marginBottom: 16 }}>
         <ClientFilterSelect onChange={setF('clientId', 'eq')} />
         <Select allowClear placeholder="Операция" style={{ width: 160 }} onChange={setF('kind', 'eq')}

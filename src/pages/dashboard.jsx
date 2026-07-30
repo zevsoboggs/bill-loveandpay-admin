@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Row, Col, Card, Statistic, Typography, Tag, Spin, Divider, Space, List, Timeline, Empty } from 'antd';
+import { Row, Col, Card, Statistic, Typography, Tag, Divider, Space, List, Timeline, Empty, Skeleton } from 'antd';
 import {
   TeamOutlined, WalletOutlined, DollarOutlined, RiseOutlined, SwapOutlined,
   ThunderboltOutlined, CheckCircleOutlined, MobileOutlined, SafetyOutlined, SafetyCertificateOutlined, CustomerServiceOutlined,
@@ -40,7 +40,20 @@ export const Dashboard = () => {
       .then((r) => setActivity(r.data)).catch(() => setActivity([]));
   }, []);
 
-  if (loading) return <div style={{ textAlign: 'center', padding: 80 }}><Spin size="large" /></div>;
+  if (loading) return (
+    <div>
+      <Skeleton.Input active style={{ width: 240, height: 32, marginBottom: 20 }} />
+      <Row gutter={[16, 16]}>
+        {Array.from({ length: 4 }).map((_, i) => <Col xs={12} md={6} key={i}><Card><Skeleton active paragraph={{ rows: 1 }} title={{ width: '50%' }} /></Card></Col>)}
+      </Row>
+      <Divider />
+      <Row gutter={[16, 16]}>
+        {Array.from({ length: 5 }).map((_, i) => <Col xs={12} md={6} key={i}><Card><Skeleton active paragraph={{ rows: 2 }} title={{ width: '40%' }} /></Card></Col>)}
+      </Row>
+      <Divider />
+      <Card><Skeleton active paragraph={{ rows: 6 }} /></Card>
+    </div>
+  );
   if (!stats) return <Text type="danger">Не удалось загрузить статистику</Text>;
 
   const b = stats.balances;
